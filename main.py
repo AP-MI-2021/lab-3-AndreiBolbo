@@ -58,6 +58,15 @@ def get_longest_arithmetic_progression(lst):
     return max_secv
 
 
+def test_longest_div_k():
+    assert get_longest_div_k([1, 2, 4, 6], 2) == [2, 4, 6]
+    assert get_longest_div_k([1, 2, 4, 6], 3) == [6]
+    assert get_longest_div_k([1, 2, 4, 6], 1) == [1, 2, 4, 6]
+    assert get_longest_div_k([1, 2, 4, 6], 7) == []
+    assert get_longest_div_k([1, 2, 4, 6, 8, 9], 3) == [6]
+    assert get_longest_div_k([1, 2, 4, 6, 8], 9) == []
+
+
 def main():
     lst_int = []
     while True:
@@ -74,11 +83,13 @@ def main():
                 lst_int.append(int(element))
         elif optiune == '2':
             k = int(input('dati un k :'))
-            print(f'cea mai lunga secventa cu toate numerele divizibile cu {k} este')
+            print(f'cea mai lunga secventa cu toate numerele divizibile cu {k} este:')
             list_div = get_longest_div_k(lst_int, k)
-            print(list_div)
+            if list_div!=[]:
+                print(list_div)
+            else:
+                print(f'Nu exista niciun numar divizibil cu {k}')
         elif optiune == '3':
-            print(lst_int[1:3])
             list_arit = get_longest_arithmetic_progression(lst_int)
             if list_arit != []:
                 print(f'cea mai lunga secventa cu numerele in progresie aritmetica este : {list_arit}')
@@ -90,4 +101,5 @@ def main():
             print('Optiune incorecta')
 
 
+test_longest_div_k()
 main()
