@@ -85,7 +85,7 @@ def main():
             k = int(input('dati un k :'))
             print(f'cea mai lunga secventa cu toate numerele divizibile cu {k} este:')
             list_div = get_longest_div_k(lst_int, k)
-            if list_div!=[]:
+            if list_div != []:
                 print(list_div)
             else:
                 print(f'Nu exista niciun numar divizibil cu {k}')
