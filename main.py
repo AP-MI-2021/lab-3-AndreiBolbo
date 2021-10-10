@@ -1,4 +1,9 @@
 def div_k(lst, k):
+    """
+     verifica daca toate elementele unei liste sunt diviizbile cu un k dat
+     -Input:lst:lista[int],k(int)
+     -Output:True/False
+    """
     for nr in lst:
         if nr % k != 0:
             return False
@@ -6,6 +11,11 @@ def div_k(lst, k):
 
 
 def get_longest_div_k(lst, k):
+    """
+    determina secventa cea mai lunga divizibila cu k
+    -Input:lst:-lista[int],k(int)
+    -Output:max_secv:-lista[int]
+    """
     i = 1
     max_secv = []
     while i <= len(lst):
@@ -17,11 +27,43 @@ def get_longest_div_k(lst, k):
     return max_secv
 
 
+def arithmetic_progression(lst):
+    """
+    verifica daca elementele listei sunt in progresie aritmetica
+    -Input: lst:lista[int]
+    -Output: True/False
+    """
+    for i in range(1, len(lst)-1):
+        if lst[i] != (lst[i-1]+lst[i+1])/2:
+            return False
+    return True
+
+
+def get_longest_arithmetic_progression(lst):
+    """
+    Determina secventa maxima aflata in progresie aritmetica
+    prin compararea lungimilor a listelor cu aceasta proprietate
+    -Input: lst:list[int]
+    -Output: max_secv:list[int]
+    """
+    lista_secv = []
+    for start in range(0, len(lst)-2):
+        for stop in range(start+3, len(lst)+1):
+            if arithmetic_progression(lst[start:stop]):
+                lista_secv.append(lst[start:stop])
+    max_secv = []
+    for secventa in lista_secv:
+        if len(secventa) > len(max_secv):
+            max_secv = secventa
+    return max_secv
+
+
 def main():
     lst_int = []
     while True:
         print('1. Pentru a citi numerele')
         print('2. Cea mai lunga secventa divizibila cu un k dat')
+        print('3. Cea mai lunga secventa in progresie aritmetica')
         print('x. Pentru a iesi ')
         optiune = input('alegeti optiunea dorita :')
         if optiune == '1':
@@ -35,7 +77,17 @@ def main():
             print(f'cea mai lunga secventa cu toate numerele divizibile cu {k} este')
             list_div = get_longest_div_k(lst_int, k)
             print(list_div)
+        elif optiune == '3':
+            print(lst_int[1:3])
+            list_arit = get_longest_arithmetic_progression(lst_int)
+            if list_arit != []:
+                print(f'cea mai lunga secventa cu numerele in progresie aritmetica este : {list_arit}')
+            else:
+                print('Nu exista')
         elif optiune == 'x':
             break
+        else:
+            print('Optiune incorecta')
+
 
 main()
