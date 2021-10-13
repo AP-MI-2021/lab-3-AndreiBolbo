@@ -58,6 +58,39 @@ def get_longest_arithmetic_progression(lst):
     return max_secv
 
 
+def lower_average(lst, average):
+    """
+    Determina daca media elementelor unei liste nu depaseste valoarea data
+    Input: lst :list[int]:
+           average :float
+    Output: True/False
+    """
+    s = 0
+    for element in lst:
+        s += element
+    if s/len(lst) <= average:
+        return True
+    return False
+
+
+def get_longest_average_below(lst: list[int], average: float) -> list[int]:
+    """
+    Determina secventa maxima care nu depaseste numarul dat
+    Input: lst:list[int[:
+           average:float:
+    Output: max_secv
+    """
+    i = 1
+    max_secv = []
+    while i <= len(lst):
+        for s in range(0, len(lst) - i + 1):
+            if lower_average(lst[s:s + i], average):
+                if len(lst[s:s + i]) > len(max_secv):
+                    max_secv = lst[s:s + i]
+        i += 1
+    return max_secv
+
+
 def test_longest_div_k():
     assert get_longest_div_k([1, 2, 4, 6], 2) == [2, 4, 6]
     assert get_longest_div_k([1, 2, 4, 6], 3) == [6]
@@ -73,6 +106,7 @@ def main():
         print('1. Pentru a citi numerele')
         print('2. Cea mai lunga secventa divizibila cu un k dat')
         print('3. Cea mai lunga secventa in progresie aritmetica')
+        print('4. Cea mai lunga secventa a carei medie nu depaseste o valoare citita')
         print('x. Pentru a iesi ')
         optiune = input('alegeti optiunea dorita :')
         if optiune == '1':
@@ -93,6 +127,14 @@ def main():
             list_arit = get_longest_arithmetic_progression(lst_int)
             if list_arit != []:
                 print(f'cea mai lunga secventa cu numerele in progresie aritmetica este : {list_arit}')
+            else:
+                print('Nu exista')
+        elif optiune == '4':
+            average = int(input('Dati valoarea :'))
+            print(f'Cea mai lunga secventa cu media numerelor care nu depaseste valoarea {average} este:')
+            list_average = get_longest_average_below(lst_int, average)
+            if list_average != []:
+                print(f'cea mai lunga secventa cu media  numerelor care nu depaseste este  : {list_average}')
             else:
                 print('Nu exista')
         elif optiune == 'x':
